@@ -1,185 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book library interface</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Book Library</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<style>
-    /* General styling */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f4f6f9;
-  color: #333;
-}
-
-.library {
-  text-align: center;
-  padding: 20px;
-}
-
-.library h1 {
-  margin-bottom: 20px;
-}
-
-/* Controls */
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.controls input,
-.controls select {
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  min-width: 200px;
-}
-
-/* Bookshelf grid */
-.bookshelf {
-  display: grid;
-  gap: 20px;
-  padding: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-/* Book card */
-.book-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 15px;
-  transition: transform 0.3s ease;
-}
-
-.book-card:hover {
-  transform: translateY(-5px);
-}
-
-.book-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.book-info {
-  margin-top: 10px;
-}
-
-.book-info h3 {
-  font-size: 18px;
-  margin: 5px 0;
-}
-
-.book-info p {
-  font-size: 14px;
-  color: #666;
-}
-
-.book-price {
-  font-weight: bold;
-  color: #2a7a2a;
-  margin-top: 5px;
-}
-
-</style>
 <body>
-  
-  <div class="library">
-    <h1>  Book Library</h1>
+  <!-- HEADER -->
+  <header class="header">
+    <h1> My Book Library</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="login .html" class="login-btn">Login</a>
+    </nav>
+  </header>
 
-   
-    <div class="controls">
-      <input type="text" id="searchInput" placeholder="Search by title or author...">
-      <select id="sortSelect">
-        <option value="">Sort by Price</option>
-        <option value="low-high">Low → High</option>
-        <option value="high-low">High → Low</option>
-      </select>
-    </div>
+  <!-- SEARCH & FILTER -->
+  <section class="controls">
+    <input type="text" id="searchInput" placeholder="Search by title or author..." />
+    <select id="sortSelect">
+      <option value="">Sort by Price</option>
+      <option value="low-high">Low → High</option>
+      <option value="high-low">High → Low</option>
+    </select>
+  </section>
 
-   
-    <div class="bookshelf" id="bookshelf"></div>
-  </div>
+  <!-- BOOKS DISPLAY -->
+  <main class="bookshelf" id="bookshelf"></main>
 
-  <script>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 My Book Library | Designed with  by Cheran</p>
+  </footer>
 
-const books = [
-  { title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 1200, image: "https://picsum.photos/200/300?1" },
-  { title: "To Kill a Mockingbird", author: "Harper Lee", price: 899, image: "https://picsum.photos/200/300?2" },
-  { title: "1984", author: "George Orwell", price: 650, image: "https://picsum.photos/200/300?3" },
-  { title: "Pride and Prejudice", author: "Jane Austen", price: 499, image: "https://picsum.photos/200/300?4" },
-  { title: "The Hobbit", author: "J.R.R. Tolkien", price: 1500, image: "https://picsum.photos/200/300?5" },
-  { title: "Moby Dick", author: "Herman Melville", price: 750, image: "https://picsum.photos/200/300?6" },
-  { title: "War and Peace", author: "Leo Tolstoy", price: 2000, image: "https://picsum.photos/200/300?7" },
-  { title: "Hamlet", author: "William Shakespeare", price: 399, image: "https://picsum.photos/200/300?8" },
-  { title: "The Catcher in the Rye", author: "J.D. Salinger", price: 950, image: "https://picsum.photos/200/300?9" },
-  { title: "Brave New World", author: "Aldous Huxley", price: 720, image: "https://picsum.photos/200/300?10" }
-];
-
-
-const bookshelf = document.getElementById("bookshelf");
-const searchInput = document.getElementById("searchInput");
-const sortSelect = document.getElementById("sortSelect");
-
-
-const formatINR = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR"
-});
-
-
-function renderBooks(bookArray) {
-  bookshelf.innerHTML = "";
-  bookArray.forEach(book => {
-    const card = document.createElement("div");
-    card.className = "book-card";
-    card.innerHTML = `
-      <img src="${book.image}" alt="${book.title}">
-      <div class="book-info">
-        <h3>${book.title}</h3>
-        <p>${book.author}</p>
-        <p class="book-price">${formatINR.format(book.price)}</p>
-      </div>
-    `;
-    bookshelf.appendChild(card);
-  });
-}
-
-
-renderBooks(books);
-
-
-searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase();
-  const filteredBooks = books.filter(
-    book =>
-      book.title.toLowerCase().includes(query) ||
-      book.author.toLowerCase().includes(query)
-  );
-  renderBooks(filteredBooks);
-});
-
-
-sortSelect.addEventListener("change", () => {
-  let sortedBooks = [...books];
-  if (sortSelect.value === "low-high") {
-    sortedBooks.sort((a, b) => a.price - b.price);
-  } else if (sortSelect.value === "high-low") {
-    sortedBooks.sort((a, b) => b.price - a.price);
-  }
-  renderBooks(sortedBooks);
-});
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-

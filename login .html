@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - My Book Library</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <h1> My Book Library</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="login .html" class="active">Login</a>
+    </nav>
+  </header>
+
+  <section class="login-section">
+    <h2>Login to Your Account</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p class="note">Tip: Use any username and password for demo.</p>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 My Book Library | Designed with  by Cheran</p>
+  </footer>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Login successful! Welcome to My Book Library ");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
